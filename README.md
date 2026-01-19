@@ -1,7 +1,7 @@
 
 # ⌨️ Typing Speed & Accuracy Tester
 Welcome to the Typing Speed & Accuracy Tester – a sleek and minimal web app designed to help users improve their typing skills through real-time speed and precision assessments.<br>
-https://abhimore1234.github.io/typing_test/
+(https://omkarmerukar.github.io/typeing-/)
 ## 🚀 Features
 - Instant Typing Test: Start typing right away with randomly generated sentences or custom text.
 - Real-Time Metrics: Track Words Per Minute (WPM), accuracy percentage, and error count as you type.
