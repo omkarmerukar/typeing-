@@ -1,0 +1,622 @@
+<!-- filepath: d:\code\html\typing_website\index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="hhh3.png">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Test</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Roboto', Arial, sans-serif;
+            position: relative;
+            overflow-x: hidden;
+            padding-top: 70px;
+        }
+        .animated-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2;
+            background: linear-gradient(-45deg, #74ebd5, #ACB6E5, #43cea2, #185a9d);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+        .floating-shape {
+            position: fixed;
+            z-index: -1;
+            border-radius: 50%;
+            opacity: 0.18;
+            filter: blur(2px);
+            animation: float 8s ease-in-out infinite alternate;
+        }
+        .shape1 {
+            width: 180px; height: 180px;
+            background: #43cea2;
+            top: 10%; left: 8%;
+            animation-delay: 0s;
+        }
+        .shape2 {
+            width: 120px; height: 120px;
+            background: #185a9d;
+            top: 70%; left: 80%;
+            animation-delay: 2s;
+        }
+        .shape3 {
+            width: 90px; height: 90px;
+            background: #ACB6E5;
+            top: 60%; left: 15%;
+            animation-delay: 4s;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) scale(1);}
+            100% { transform: translateY(-30px) scale(1.08);}
+        }
+        .main-header {
+            width: 100vw;
+            display: flex;
+            justify-content: flex-start;   /* Align content to the left */
+            align-items: center;
+            padding: 0 40px 0 32px;
+            height: 70px;
+            background: rgba(255,255,255,0.85);
+            box-shadow: 0 2px 12px rgba(44,62,80,0.07);
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 10;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .header-left .logo {
+            font-size: 1.1rem; /* Make the Typing Test text smaller */
+            font-weight: 700;
+            color: #185a9d;
+            letter-spacing: 2px;
+        }
+        .header-right {
+            display: flex;
+            gap: 14px;
+            margin-left: 40px;   /* Adjust this value as needed */
+        }
+        .header-btn {
+            background: none;
+            border: 2px solid #43cea2;
+            color: #185a9d;
+            border-radius: 6px;
+            padding: 8px 22px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .header-btn.signup {
+            background: #43cea2;
+            color: #fff;
+            border: 2px solid #43cea2;
+            margin-left: 8px;
+        }
+        .header-btn:hover {
+            background: #185a9d;
+            color: #fff;
+        }
+        .home-glass-card {
+            background: rgba(255,255,255,0.82);
+            box-shadow: 0 8px 32px rgba(44, 62, 80, 0.18);
+            border-radius: 28px;
+            max-width: 480px;
+            margin: 120px auto 0 auto;
+            padding: 48px 36px 36px 36px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(8px);
+            border: 1.5px solid rgba(67,206,162,0.13);
+        }
+        .home-glass-card h1 {
+            font-size: 2.2rem;
+            color: #185a9d;
+            margin-bottom: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        .home-glass-card .emoji {
+            font-size: 2.2rem;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        .home-glass-card .subtitle {
+            color: #43cea2;
+            font-size: 1.18rem;
+            margin-bottom: 18px;
+            font-weight: 600;
+        }
+        .home-glass-card .desc {
+            color: #2d3a4b;
+            font-size: 1.08rem;
+            margin: 18px 0 28px 0;
+            opacity: 0.85;
+        }
+        .test-options {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-top: 18px;
+        }
+        .test-options button {
+            background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 18px 0;
+            font-size: 1.15rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .test-options button:hover {
+            background: linear-gradient(90deg, #185a9d 0%, #43cea2 100%);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 4px 16px rgba(44, 62, 80, 0.13);
+        }
+        .option-icon {
+            font-size: 1.5rem;
+            vertical-align: middle;
+        }
+        .test-area {
+
+
+        
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px;
+            margin: 110px auto 0 auto;
+            max-width: 600px;
+            background: rgba(255,255,255,0.96);
+            border-radius: 22px;
+            box-shadow: 0 8px 32px rgba(44, 62, 80, 0.13);
+            padding: 40px 32px 32px 32px;
+            z-index: 2;
+            position: relative;
+        }
+        .test-sentence {
+            font-size: 1.35rem;
+            line-height: 2.2rem;
+            background: #f4f8fb;
+            border-radius: 12px;
+            padding: 22px 18px;
+            min-height: 60px;
+            min-width: 320px;
+            letter-spacing: 0.5px;
+            word-break: break-word;
+            box-shadow: 0 2px 12px rgba(44,62,80,0.06);
+            margin-bottom: 8px;
+            cursor: text;
+            transition: box-shadow 0.2s;
+        }
+        .test-sentence:focus,
+        .test-sentence:hover {
+            box-shadow: 0 4px 24px rgba(44,62,80,0.13);
+        }
+        .stats {
+            display: flex !important;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 1.08rem;
+            color: #2d3a4b;
+            margin-bottom: 10px;
+            margin-top: 8px;
+            gap: 16px;
+        }
+        .test-area button {
+            background: #43cea2;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 28px;
+            font-size: 1.08rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            margin-right: 10px;
+            transition: background 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+        }
+        .test-area button:hover {
+            background: #185a9d;
+        }
+        @media (max-width: 700px) {
+            .main-header { padding: 0 10px; }
+            .home-glass-card { margin-top: 90px; padding: 24px 8px 20px 8px; }
+            .home-glass-card h1 { font-size: 1.2rem; }
+            .test-options button { font-size: 1rem; padding: 12px 0; }
+            .test-area {
+                margin-top: 90px;
+                padding: 18px 4vw 18px 4vw;
+                max-width: 98vw;
+            }
+            .test-sentence {
+                font-size: 1.05rem;
+                padding: 12px 6px;
+                min-width: 0;
+            }
+            .stats {
+                flex-direction: column;
+                gap: 4px;
+                font-size: 1rem;
+            }
+        }
+        .result {
+            margin-top: 24px;
+            padding: 24px 18px;
+            background: #f4f8fb;
+            border-radius: 12px;
+            font-size: 1.25rem;
+            color: #185a9d;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(44,62,80,0.06);
+        }
+        .result-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .result-stats {
+            font-size: 1.1rem;
+            color: #43cea2;
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100vw; height: 100vh;
+            overflow: auto;
+            background: rgba(0,0,0,0.3);
+        }
+        .modal-content {
+            background: #fff;
+            margin: 8% auto;
+            padding: 32px 24px 24px 24px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 350px;
+            box-shadow: 0 4px 24px rgba(44,62,80,0.13);
+            position: relative;
+            text-align: center;
+        }
+        .close {
+            position: absolute;
+            right: 18px;
+            top: 12px;
+            font-size: 1.5rem;
+            color: #888;
+            cursor: pointer;
+        }
+        .modal-content input[type="text"],
+        .modal-content input[type="email"],
+        .modal-content input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #43cea2;
+            font-size: 1rem;
+        }
+        .modal-content button[type="submit"] {
+            background: #43cea2;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .modal-content button[type="submit"]:hover {
+            background: #185a9d;
+        }
+        .typing-animation-header {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-left: 0;
+}
+
+.typing-text {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, #43cea2 20%, #185a9d 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    text-shadow: 0 2px 8px rgba(44,62,80,0.10);
+    border-right: 3px solid #185a9d;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    animation: typing 2.2s steps(12, end) forwards, blink 0.7s step-end infinite alternate;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 12ch; }
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+    </style>
+    <div class="animated-bg"></div>
+    <div class="floating-shape shape1"></div>
+    <div class="floating-shape shape2"></div>
+    <div class="floating-shape shape3"></div>
+
+    <header class="main-header">
+        <div class="typing-animation-header">
+            <span class="typing-text">Typing Test</span>
+        </div>
+    </header>
+
+    <div class="home-glass-card" id="menu">
+        <h1>
+            <span class="emoji">⌨️</span>
+            Take a Free Typing Test
+        </h1>
+        <h2 class="subtitle">Check your Words Per Minute (WPM) and get your certificate!</h2>
+        <p class="desc">
+            Want to improve your typing speed? Start with a quick test and see your results instantly. Our tests are free and suitable for all ages.
+        </p>
+        <div class="test-options">
+            <button onclick="startTest(60)">
+                <span class="option-icon">⏱️</span>
+                1 Minute Test
+            </button>
+            <button onclick="startTest(120)">
+                <span class="option-icon">⏱️</span>
+                2 Minute Test
+            </button>
+            <button onclick="startTest('1-page')">
+                <span class="option-icon">📄</span>
+                1 Page 5 min
+            </button>
+        </div>
+    </div>
+
+    <div class="container test-area" id="testArea">
+        <div class="test-sentence" id="sentence" tabindex="-1"></div>
+        <input type="text" id="hiddenInput" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity:0;position:absolute;left:-9999px;">
+        <div class="stats" id="stats" style="display:flex;">
+            <span id="timer">Time: 0s</span>
+            <!-- <span id="wpm">WPM: 0</span> -->
+            <!-- <span id="accuracy">Accuracy: 100%</span> -->
+        </div>
+        <div class="result" id="result" style="display:none;"></div>
+        <button onclick="restartTest()">Restart</button>
+        <button onclick="backToMenu()">Back</button>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signupModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeSignup">&times;</span>
+        <h2>Sign Up</h2>
+        <form action="sqlsrv.php" method="post">
+          <input type="hidden" name="form_type" value="signup">
+          <input type="text" name="name" placeholder="Name" required><br>
+          <input type="email" name="email" placeholder="Email" required><br>
+          <input type="password" name="password" placeholder="Password" required><br>
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
+    </div>
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeLogin">&times;</span>
+        <h2>Login</h2>
+        <form action="sqlsrv.php" method="post">
+          <input type="hidden" name="form_type" value="login">
+          <input type="email" name="email" placeholder="Email" required><br>
+          <input type="password" name="password" placeholder="Password" required><br>
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+
+<script>
+    const sentences = [
+
+
+    "The quick brown fox jumps over the lazy dog.Typing fast and accurately is a valuable skill.Practice makes perfect, so keep on typing! ,A journey of a thousand miles begins with a single step.Success is not final, failure is not fatal: it is the courage to continue that counts.Consistency is the key to mastering any skill.Every expert was once a beginner.Stay focused and keep improving every day.Mistakes are proof that you are trying.Believe in yourself and all that you are.Great things never come from comfort zones.Push yourself.Dream it. Wish it. Do it.",
+    "Don’t watch the clock; do what it does. Keep going. Little things make big days.Opportunities don't happen, you create them.Difficult roads often lead to beautiful destinations.Happiness is not by chance, but by choice.Success is not final, failure is not fatal: it is the courage to continue that counts.Consistency is the key to mastering any skill.Every expert was once a beginner.Stay focused and keep improving every day.",
+    "The harder you work for something, the greater you'll feel when you achieve it.Don't stop when you're tired. Stop when you're done.Wake up with determination. Go to bed with satisfaction.Do something today that your future self will thank you for.It always seems impossible until it's done.Success doesn't just find you. You have to go out and get it.The secret of getting ahead is getting started.The quick brown fox jumps over the lazy dog.Typing fast and accurately is a valuable skill.Practice makes perfect, so keep on typing! ,A journey of a thousand miles begins with a single step.",
+    "Mistakes are proof that you are trying.Believe in yourself and all that you are.Great things never come from comfort zones.Push yourself, because no one else is going to do it for you.Dream it. Wish it. Do it.Don’t watch the clock; do what it does. Keep going.Little things make big days.Opportunities don't happen, you create them.Difficult roads often lead to beautiful destinations.Happiness is not by chance, but by choice.The harder you work for something, the greater you'll feel when you achieve it.Don't stop when you're tired. Stop when you're done.Wake up with determination. Go to bed with satisfaction . Do something today that your future self will thank you for.It always seems impossible until it's done.",
+    "Dream bigger. Do bigger.Don't stop when you're tired. Stop when you're done.Work hard in silence, let your success be your noise.The key to success is to focus on goals, not obstacles.Doubt kills more dreams than failure ever will.Success is what happens after you have survived all your mistakes.The only way to do great work is to love what you do.Difficulties in life are intended to make us better, not bitter.",
+    "Success is not in what you have, but who you are.The best way to get started is to quit talking and begin doing.Don't wait for opportunity. Create it.The quick brown fox jumps over the lazy dog.Typing fast and accurately is a valuable skill. Practice makes perfect, so keep on typing! , A journey of a thousand miles begins with a single step.",
+    "Success is not final, failure is not fatal: it is the courage to continue that counts.Consistency is the key to mastering any skill.Every expert was once a beginner.Stay focused and keep improving every day.Mistakes are proof that you are trying.Believe in yourself and all that you are.Great things never come from comfort zones.Push yourself.Dream it. Wish it. Do it.Don’t watch the clock; do what it does. Keep going.Little things make big days.Opportunities don't happen, you create them.Difficult roads often lead to beautiful destinations.Happiness is not by chance, but by choice.",
+    "The harder you work for something, the greater you'll feel when you achieve it.Don't stop when you're tired. Stop when you're done.Wake up with determination. Go to bed with satisfaction.Do something today that your future self will thank you for. Success doesn't just find you. You have to go out and get it.The secret of getting ahead is getting started.Your limitation—its only your imagination.Push yourself, because no one else is going to do it for you.Sometimes later becomes never. Do it now.Great things never come from comfort zones.",
+    "It always seems impossible until it's done.Success doesn't just find you. You have to go out and get it.The secret of getting ahead is getting started.Your limitation—it's only your imagination.Push yourself, because no one else is going to do it for you.Sometimes later becomes never. Do it now.Dream bigger. Do bigger.",
+    "Work hard in silence, let your success be your noise.The key to success is to focus on goals, not obstacles.Doubt kills more dreams than failure ever will.Success is what happens after you have survived all your mistakes.The only way to do great work is to love what you do.Difficulties in life are intended to make us better, not bitter.Success is not in what you have, but who you are.The best way to get started is to quit talking and begin doing.Don't wait for opportunity. Create it."
+];
+
+    
+
+    let currentSentence = "";
+    let timer;
+    let timeoutId;
+    let testDuration = 60;
+    let ended = true;
+    let startTime = 0;
+    let timerStarted = false;
+
+    const hiddenInput = document.getElementById('hiddenInput');
+    const testArea = document.getElementById('testArea');
+    const menu = document.getElementById('menu');
+
+    let totalTypedChars = 0;
+    let totalCorrectWords = 0;
+    let totalTypedWords = 0;
+
+    function startTest(duration) {
+        testDuration = duration;
+        ended = false;
+        hiddenInput.value = "";
+        document.getElementById('result').style.display = "none";
+        document.getElementById('timer').innerText = `Time: ${duration}s`;
+        testArea.style.display = "flex";
+        menu.style.display = "none";
+        clearInterval(timer);
+        clearTimeout(timeoutId);
+        setNextSentence();
+        hiddenInput.focus();
+        totalTypedChars = 0;
+        totalCorrectWords = 0;
+        totalTypedWords = 0;
+        timerStarted = false;
+    }
+
+    hiddenInput.addEventListener('input', (e) => {
+        if (ended) return;
+        const userInput = e.target.value;
+
+        if (!timerStarted) {
+            startTime = Date.now();
+            timer = setInterval(updateTimer, 1000);
+            timeoutId = setTimeout(() => endTest(0, 100, false), testDuration * 1000);
+            timerStarted = true;
+        }
+
+        let html = "";
+        for (let i = 0; i < currentSentence.length; i++) {
+            if (i < userInput.length) {
+                html += userInput[i] === currentSentence[i]
+                    ? `<span style="color:#43cea2;">${currentSentence[i]}</span>`
+                    : `<span style="color:#e74c3c; background:#ffeaea;">${currentSentence[i]}</span>`;
+            } else if (i === userInput.length) {
+                html += `<span style="color:#185a9d; text-decoration:underline;">${currentSentence[i]}</span>`;
+            } else {
+                html += `<span style="color:#b2bec3;">${currentSentence[i]}</span>`;
+            }
+        }
+        document.getElementById('sentence').innerHTML = html;
+
+        const sentenceWords = currentSentence.trim().split(/\s+/);
+        const inputWords = userInput.trim().split(/\s+/).filter(Boolean);
+
+        totalTypedChars = userInput.replace(/\s/g, '').length;
+        totalTypedWords = inputWords.length;
+        totalCorrectWords = 0;
+        for (let i = 0; i < inputWords.length; i++) {
+            if (inputWords[i] === sentenceWords[i]) {
+                totalCorrectWords++;
+            }
+        }
+
+        if (userInput === currentSentence) {
+            clearInterval(timer);
+            clearTimeout(timeoutId);
+            endTest(undefined, undefined, true);
+        }
+    });
+
+    function updateTimer() {
+        const currentTime = parseInt(document.getElementById('timer').innerText.split(' ')[1]);
+        if (currentTime <= 1) {
+            endTest();
+            return;
+        }
+        document.getElementById('timer').innerText = `Time: ${currentTime - 1}s`;
+    }
+
+    function setNextSentence() {
+        const randomIndex = Math.floor(Math.random() * sentences.length);
+        currentSentence = sentences[randomIndex];
+        document.getElementById('sentence').innerText = currentSentence;
+        highlightSentence();
+    }
+
+    function highlightSentence() {
+        const sentenceElement = document.getElementById('sentence');
+        const words = currentSentence.split(' ');
+        sentenceElement.innerHTML = words.map((word, index) => {
+            return `<span>${word}</span>`;
+        }).join(' ');
+    }
+
+    function endTest(wpm = 0, accuracy = 100, completed = false) {
+        if (ended) return;
+        ended = true;
+        clearInterval(timer);
+        clearTimeout(timeoutId);
+        hiddenInput.blur();
+
+        const elapsed = (Date.now() - startTime) / 1000 / 60;
+
+        const overallWpm = elapsed > 0 ? Math.round(totalTypedChars / 5 / elapsed) : 0;
+        const overallAccuracy = totalTypedWords > 0
+            ? Math.round((totalCorrectWords / totalTypedWords) * 100)
+            : 100;
+
+        let resultMsg = completed
+            ? `<div class="result-title">Congratulations! You completed the test.</div>`
+            : `<div class="result-title">Time's up!</div>`;
+        resultMsg += `<div class="result-stats">WPM: <b>${overallWpm}</b> &nbsp; | &nbsp; Accuracy: <b>${overallAccuracy}%</b></div>`;
+
+        document.getElementById('result').innerHTML = resultMsg;
+        document.getElementById('result').style.display = "block";
+    }
+
+    function restartTest() {
+        startTest(testDuration);
+    }
+
+    function backToMenu() {
+        clearInterval(timer);
+        clearTimeout(timeoutId);
+        testArea.style.display = "none";
+        menu.style.display = "block";
+    }
+
+    // Modal controls
+    document.getElementById('sentence').addEventListener('click', () => hiddenInput.focus());
+    document.getElementById('openLogin').onclick = () => document.getElementById('loginModal').style.display = 'block';
+    document.getElementById('openSignup').onclick = () => document.getElementById('signupModal').style.display = 'block';
+    document.getElementById('closeLogin').onclick = () => document.getElementById('loginModal').style.display = 'none';
+    document.getElementById('closeSignup').onclick = () => document.getElementById('signupModal').style.display = 'none';
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
+        }
+    };
+
+    window.startTest = startTest;
+    window.restartTest = restartTest;
+    window.backToMenu = backToMenu;
+</script>
+
+</body>
+</html>
